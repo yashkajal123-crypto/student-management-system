@@ -1,0 +1,32 @@
+# build output
+target/
+build/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+!**/.mvn/wrapper/maven-wrapper.jar
+
+# local database files (demo profile)
+data/
+*.db
+
+# logs
+logs/
+*.log
+C:/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# packaging
+*.zip
