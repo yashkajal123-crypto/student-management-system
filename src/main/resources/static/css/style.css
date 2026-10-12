@@ -1,0 +1,207 @@
+/* =====================================================================
+   Student Management System - custom styles
+   Built on top of Bootstrap 5 (layout utilities stay in the HTML).
+   ===================================================================== */
+
+:root {
+    --primary-color: #3867d6;
+    --primary-dark: #2c54ab;
+    --sidebar-bg: #1f2937;
+    --sidebar-hover: #374151;
+    --sidebar-width: 250px;
+    --body-bg: #f4f6fa;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--body-bg);
+}
+
+/* ---------- Sidebar ---------- */
+
+#sidebar-wrapper {
+    min-width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
+    min-height: 100vh;
+    background-color: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    transition: margin 0.25s ease-in-out;
+}
+
+.sidebar-heading {
+    padding: 1.15rem 1.25rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    background-color: rgba(0, 0, 0, 0.18);
+}
+
+#sidebar-wrapper .list-group {
+    flex: 1;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 0.85rem 1.25rem;
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-left: 3px solid transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-link:hover {
+    background-color: var(--sidebar-hover);
+    color: #fff;
+}
+
+.sidebar-link.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-left: 3px solid #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-link i {
+    display: inline-block;
+    width: 22px;
+    text-align: center;
+    margin-right: 4px;
+}
+
+/* ---------- Page shell ---------- */
+
+#page-content-wrapper {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#page-content-wrapper .container-fluid {
+    flex: 1;
+}
+
+#page-content-wrapper .navbar {
+    background-color: #fff !important;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+    border: none;
+    border-radius: 0.65rem;
+    box-shadow: 0 0.125rem 0.375rem rgba(18, 38, 63, 0.08);
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+/* ---------- Tables ---------- */
+
+.table thead th {
+    color: #6c757d;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* ---------- Login screen ---------- */
+
+.login-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 55%, #1e3a8a 100%);
+}
+
+.login-card {
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.25);
+}
+
+.login-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    padding: 2rem 1.5rem;
+}
+
+/* ---------- Pagination ---------- */
+
+.pagination .page-link {
+    color: var(--primary-color);
+    border-radius: 0.4rem;
+    margin-left: 0.25rem;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #adb5bd;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 767.98px) {
+
+    #sidebar-wrapper {
+        margin-left: calc(-1 * var(--sidebar-width));
+        position: relative;
+        z-index: 1030;
+    }
+
+    body.sb-sidenav-toggled #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    /* stacked tables -> label/value cards on phones */
+    .table-responsive table thead {
+        display: none;
+    }
+
+    .table-responsive table tr {
+        display: block;
+        margin-bottom: 0.9rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        background-color: #fff;
+    }
+
+    .table-responsive table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        border: none;
+        padding: 0.55rem 0.9rem;
+        border-bottom: 1px solid #f1f3f5;
+    }
+
+    .table-responsive table td:last-child {
+        border-bottom: none;
+    }
+
+    .table-responsive table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        margin-right: 1rem;
+        text-align: left;
+        color: #6c757d;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .table-responsive table td:not([data-label])::before {
+        content: "";
+    }
+}
