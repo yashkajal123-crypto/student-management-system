@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment Details - Student Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-dark text-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom border-secondary">
+                <i class="bi bi-mortarboard-fill me-2"></i> SMS Admin
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="/dashboard" class="sidebar-link">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="/courses" class="sidebar-link">
+                    <i class="bi bi-book"></i> Courses
+                </a>
+                <a href="/students" class="sidebar-link">
+                    <i class="bi bi-people"></i> Students
+                </a>
+                <a href="/enrollments/new" class="sidebar-link active">
+                    <i class="bi bi-check2-square"></i> Enroll to Course
+                </a>
+                <a href="/logout" class="sidebar-link mt-auto border-top border-secondary">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <!-- Top Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-outline-secondary" id="sidebarToggle"><i class="bi bi-list"></i></button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown"><i class="bi bi-person-circle me-1"></i> Admin User</a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="container-fluid px-4 py-4">
+                <div class="bg-primary text-white rounded-3 p-4 mb-4">
+                    <div
+                        class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+                        <div>
+                            <h2 class="mb-1">Enrollment Details</h2>
+                            <p class="mb-0 opacity-75">Overview of courses, fees, and student information.</p>
+                        </div>
+                        <a th:href="@{/enrollments}" class="btn btn-light text-primary fw-semibold"><i
+                                class="bi bi-arrow-left me-1"></i> Back to Enrolled Students</a>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Section 1: Student info and summary -->
+                    <div class="col-lg-4">
+                        <div class="card h-100 mb-3 mb-lg-4">
+                            <div class="card-header bg-white">
+                                <i class="bi bi-person-badge me-1"></i> Student Information
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>Name:</strong> <span
+                                        th:text="${student.fullName}">Jane Doe</span></p>
+                                <p class="mb-2"><strong>Email:</strong> <span th:text="${student.email}">jane@example.com</span>
+                                </p>
+                                <div class="p-3 bg-light border rounded">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Total Courses</span>
+                                        <strong th:text="${totalCourses}">3</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Total Fee</span>
+                                        <strong th:text="|Rs. ${#numbers.formatDecimal(totalFee, 1, 0)}|">Rs. 3,000</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Courses table -->
+                    <div class="col-lg-8">
+                        <div class="card h-100">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-journal-check me-1"></i> Enrolled Courses</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Course Name</th>
+                                                <th>Description</th>
+                                                <th>Enroll Date</th>
+                                                <th class="text-end">Fee</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="enrollment : ${enrollments}">
+                                                <td data-label="Course Name"
+                                                    th:text="${enrollment.course.courseName}">Web Development</td>
+                                                <td data-label="Description"
+                                                    th:text="${enrollment.course.description}">Build responsive
+                                                    websites and apps.</td>
+                                                <td data-label="Enroll Date"
+                                                    th:text="${enrollment.enrolledDate}">2026-10-05</td>
+                                                <td data-label="Fee" class="text-end"
+                                                    th:text="|Rs. ${#numbers.formatDecimal(enrollment.fee, 1, 0)}|">Rs.
+                                                    1,200</td>
+                                            </tr>
+                                            <tr th:if="${#lists.isEmpty(enrollments)}">
+                                                <td colspan="4" class="text-center text-muted py-4">This student is not
+                                                    enrolled in any course yet.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="py-4 bg-light border-top">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Student Management System <span th:text="${#dates.year(#dates.createNow())}">2026</span></div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Sidebar Toggle Script -->
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const sidebarToggle = document.body.querySelector('#sidebarToggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    document.body.classList.toggle('sb-sidenav-toggled');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
