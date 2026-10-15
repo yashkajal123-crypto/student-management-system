@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="620" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="crowOne" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,6 L10,2 M2,6 L10,10" stroke="#3867d6" stroke-width="1.6" fill="none"/>
+    </marker>
+    <marker id="crowMany" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M2,7 L12,1 M2,7 L12,7 M2,7 L12,13" stroke="#3867d6" stroke-width="1.6" fill="none"/>
+    </marker>
+  </defs>
+
+  <!-- background -->
+  <rect width="1080" height="620" fill="#f4f6fa"/>
+  <text x="540" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Student Management System - ER Diagram</text>
+  <text x="540" y="62" text-anchor="middle" font-size="13" fill="#6b7280">students 1 &#8596; N enrollments N &#8596; 1 courses (associative entity with fee snapshot)</text>
+
+  <!-- ================= STUDENTS ================= -->
+  <g>
+    <rect x="60" y="110" width="260" height="250" rx="10" fill="#ffffff" stroke="#3867d6" stroke-width="2"/>
+    <rect x="60" y="110" width="260" height="42" rx="10" fill="#3867d6"/>
+    <rect x="60" y="132" width="260" height="20" fill="#3867d6"/>
+    <text x="190" y="137" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">STUDENTS</text>
+
+    <text x="78" y="180" font-size="13" fill="#111827"><tspan font-weight="700">PK</tspan>  id : BIGINT</text>
+    <text x="78" y="208" font-size="13" fill="#111827">first_name : VARCHAR(50)</text>
+    <text x="78" y="236" font-size="13" fill="#111827">last_name : VARCHAR(50)</text>
+    <text x="78" y="264" font-size="13" fill="#111827">email : VARCHAR(100) <tspan font-style="italic" fill="#b45309">UQ</tspan></text>
+    <text x="78" y="292" font-size="13" fill="#111827">phone : VARCHAR(20)</text>
+    <text x="78" y="320" font-size="13" fill="#111827">address : VARCHAR(255)</text>
+    <text x="78" y="348" font-size="13" fill="#111827">is_active : BOOLEAN</text>
+  </g>
+
+  <!-- ================= COURSES ================= -->
+  <g>
+    <rect x="760" y="110" width="260" height="250" rx="10" fill="#ffffff" stroke="#0e9f6e" stroke-width="2"/>
+    <rect x="760" y="110" width="260" height="42" rx="10" fill="#0e9f6e"/>
+    <rect x="760" y="132" width="260" height="20" fill="#0e9f6e"/>
+    <text x="890" y="137" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">COURSES</text>
+
+    <text x="778" y="180" font-size="13" fill="#111827"><tspan font-weight="700">PK</tspan>  id : BIGINT</text>
+    <text x="778" y="208" font-size="13" fill="#111827">course_name : VARCHAR(100)</text>
+    <text x="778" y="236" font-size="13" fill="#111827">course_code : VARCHAR(20) <tspan font-style="italic" fill="#b45309">UQ</tspan></text>
+    <text x="778" y="264" font-size="13" fill="#111827">course_fee : DECIMAL(10,2)</text>
+    <text x="778" y="292" font-size="13" fill="#111827">duration : VARCHAR(30)</text>
+    <text x="778" y="320" font-size="13" fill="#111827">description : VARCHAR(1000)</text>
+    <text x="778" y="348" font-size="13" fill="#111827">is_active : BOOLEAN</text>
+  </g>
+
+  <!-- ================= ENROLLMENTS ================= -->
+  <g>
+    <rect x="400" y="400" width="280" height="170" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+    <rect x="400" y="400" width="280" height="42" rx="10" fill="#7c3aed"/>
+    <rect x="400" y="422" width="280" height="20" fill="#7c3aed"/>
+    <text x="540" y="427" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">ENROLLMENTS</text>
+
+    <text x="418" y="470" font-size="13" fill="#111827"><tspan font-weight="700">PK</tspan>  id : BIGINT</text>
+    <text x="418" y="498" font-size="13" fill="#111827"><tspan font-weight="700">FK</tspan>  student_id : BIGINT</text>
+    <text x="418" y="526" font-size="13" fill="#111827"><tspan font-weight="700">FK</tspan>  course_id : BIGINT</text>
+    <text x="418" y="554" font-size="13" fill="#111827">enrolled_date : DATE      fee : DECIMAL(10,2)</text>
+  </g>
+
+  <!-- relationship lines -->
+  <!-- students (1) ---- (N) enrollments -->
+  <line x1="190" y1="360" x2="470" y2="400" stroke="#3867d6" stroke-width="2" marker-end="url(#crowMany)"/>
+  <text x="270" y="392" font-size="12" fill="#3867d6" font-weight="600">1  enrolls  N</text>
+
+  <!-- courses (1) ---- (N) enrollments -->
+  <line x1="890" y1="360" x2="610" y2="400" stroke="#0e9f6e" stroke-width="2" marker-end="url(#crowMany)"/>
+  <text x="680" y="392" font-size="12" fill="#0e9f6e" font-weight="600">N  contains  1</text>
+
+  <!-- unique constraint note -->
+  <rect x="400" y="92" width="280" height="52" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="540" y="114" text-anchor="middle" font-size="12" fill="#92400e" font-weight="700">UNIQUE (student_id, course_id)</text>
+  <text x="540" y="132" text-anchor="middle" font-size="11" fill="#92400e">a student cannot join the same course twice</text>
+
+  <!-- legend -->
+  <rect x="60" y="545" width="220" height="52" rx="8" fill="#ffffff" stroke="#d1d5db"/>
+  <text x="72" y="566" font-size="11" fill="#374151" font-weight="700">Legend</text>
+  <text x="72" y="584" font-size="11" fill="#374151">PK = primary key   FK = foreign key   UQ = unique</text>
+</svg>
