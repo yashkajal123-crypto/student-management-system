@@ -1,0 +1,18 @@
+# Render Blueprint - one click deploy from GitHub
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: student-management-system
+    runtime: java
+    plan: free
+    buildCommand: ./mvnw package -DskipTests
+    startCommand: java -Xmx320m -jar target/student-management-system-1.0.0.jar
+    healthCheckPath: /login
+    envVars:
+      # "demo" profile -> embedded H2 database (no external DB needed).
+      # Sample data is re-seeded on every boot by DataInitializer.
+      - key: SPRING_PROFILES_ACTIVE
+        value: demo
+      # logs go to /tmp on the server (override of the C:/logs default)
+      - key: LOG_DIR
+        value: /tmp/logs
