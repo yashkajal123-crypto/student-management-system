@@ -3,10 +3,8 @@
 services:
   - type: web
     name: student-management-system
-    runtime: java
+    runtime: docker
     plan: free
-    buildCommand: ./mvnw package -DskipTests
-    startCommand: java -Xmx320m -jar target/student-management-system-1.0.0.jar
     healthCheckPath: /login
     envVars:
       # "demo" profile -> embedded H2 database (no external DB needed).
