@@ -19,7 +19,7 @@ enrollments** for a training institute / college. Built with **Spring Boot**,
 Click the button above (or follow [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)) to get a
 permanent public URL in ~5 minutes - free Render plan, no credit card.
 
-> Demo URL: `https://student-management-system-xxxx.onrender.com` *(update this line after deploying)*
+> https://student-management-system-b2e7.onrender.com
 > Login: `admin@sms.com` / `admin123`
 
 ## Features
